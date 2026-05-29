@@ -40,6 +40,10 @@ export default class ToDo{
     get getStatus(){
         return this.#status;
     }
+
+    get getProjectIdReference(){
+        return this.#projectIdReference;
+    }
     //setter
     set setTitle(newTitle){
         this.#title = newTitle;
