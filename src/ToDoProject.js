@@ -19,10 +19,10 @@ const getAllProjects = () =>{
 }
 
 const getAllToDoInProject = (projectId) => {
-    //for some reason this does not work as intended for now
-    return toDoArray.filter((toDoItem)=>{
-        toDoItem.getProjectIdReference == projectId;
+    const newArray = toDoArray.filter((toDoItem)=>{
+        return toDoItem.getProjectIdReference == projectId;
     })
+    return newArray;
 }
 addNewProject("Mikay Project");
 console.log(projectArray);
@@ -30,7 +30,7 @@ addNewTask("Feed Pets", "IDK some random descriptions", "march 2025","1","Comple
 addNewTask("randomTask", "IDK some random descriptions", "april 2026","2","Ongoing", "29bd8a4b-f0ae-4a6c-a561-ba7b66244eca");
 addNewTask("randomTask", "IDK some random descriptions", "april 2026","2","Ongoing",);
 
-console.log(toDoArray[0]);
+console.log(toDoArray[0].getProjectIdReference, "mikay");
 console.log(getAllToDoInProject("29bd8a4b-f0ae-4a6c-a561-ba7b66244eca"), "hotd");
 
 
