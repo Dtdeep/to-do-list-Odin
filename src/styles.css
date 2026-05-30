@@ -1,3 +1,67 @@
-body{
-    background-color: red;
+.content{
+    background-color: orange;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+}
+
+#menu{
+    background-color: rgb(93, 93, 238);
+}
+#main-content{
+    background-color: rgb(225, 98, 98);
+}
+.add-task-div{
+    margin: 0px 12px;
+
+}
+
+.add-task-div, .add-project-div{
+    svg{
+        width: 24px;
+        height: 24px;
+    }
+
+    button{
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.add-task-div{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-project-div{
+    display: flex;
+    h2{
+        margin-right: auto;
+    }
+}
+
+#add-task-menu span{
+    display: flex;
+    font-size: 18px;
+    svg{
+        margin-right: 6px;
+        margin-left: -6px;
+    }
+}
+
+
+#list-of-projects > div{
+    display: flex;
+    padding:5px;
+    svg{
+        width:24px;
+    }
+    p{
+        padding: 3px 0 3px 5px;
+    }
+}
+
+.projects-div{
+    margin: 0px 12px;
 }
