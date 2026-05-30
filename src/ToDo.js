@@ -64,5 +64,9 @@ export default class ToDo{
     set setStatus(newStatus){
         this.#status = newStatus;
     }
+
+    set setProjectIdReference(newProjectIdReference){
+        this.#projectIdReference = newProjectIdReference;
+    }
 }
 

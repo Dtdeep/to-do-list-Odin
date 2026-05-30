@@ -24,7 +24,7 @@ export default class Project{
         this.#projectTitle = newProjectTitle;
     }
 
-    NumberOfToDo(){
+    incrementNumberOfToDo(){
         this.#numberOfToDo = this.#numberOfToDo + 1;
     }
 

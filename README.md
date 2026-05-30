@@ -26,6 +26,8 @@
 
 - a function that renders all ToDo Project based on Project object's ID.
 
+-think of a way to make a simple solution that changes a Project Object's title and another that increments the number of Todo
+
 ## UI renderer
 
 

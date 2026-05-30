@@ -18,19 +18,59 @@ const getAllProjects = () =>{
     return projectArray;
 }
 
+const getAllToDo = () =>{
+    return toDoArray;
+}
+
+const getSpecificProject = (projectId) =>{
+    return projectArray.findIndex((projectItem)=>{
+        return projectItem.getProjectId == projectId;
+    });
+}
+
 const getAllToDoInProject = (projectId) => {
     const newArray = toDoArray.filter((toDoItem)=>{
         return toDoItem.getProjectIdReference == projectId;
     })
     return newArray;
 }
-addNewProject("Mikay Project");
-console.log(projectArray);
-addNewTask("Feed Pets", "IDK some random descriptions", "march 2025","1","Completed", "29bd8a4b-f0ae-4a6c-a561-ba7b66244eca");
-addNewTask("randomTask", "IDK some random descriptions", "april 2026","2","Ongoing", "29bd8a4b-f0ae-4a6c-a561-ba7b66244eca");
-addNewTask("randomTask", "IDK some random descriptions", "april 2026","2","Ongoing",);
 
-console.log(toDoArray[0].getProjectIdReference, "mikay");
-console.log(getAllToDoInProject("29bd8a4b-f0ae-4a6c-a561-ba7b66244eca"), "hotd");
+const getSpecificToDo = (toDoId) =>{
+    return toDoArray.findIndex((toDoItem)=>{
+        return toDoItem.getId == toDoId;
+    })
+}
 
+// addNewProject("Mikay Project");
+// addNewTask("Feed Pets", "IDK some random descriptions", "march 2025","1","Completed", projectArray[0].getProjectId);
+// addNewTask("randomTask", "IDK some random descriptions", "april 2026","2","Ongoing", projectArray[0].getProjectId);
+// addNewTask("randomTask", "CATIDK some random descriptions", "april 2026","2","Ongoing");
+
+// console.log(projectArray, "All projects!");
+// console.log(toDoArray, "ALL TO DO!");
+
+// const indexOfProject = getSpecificProject(projectArray[0].getProjectId);
+// const project = getAllProjects()[indexOfProject];
+// project.setProjectTitle = "Letchon Project";
+// getAllProjects()[indexOfProject].incrementNumberOfToDo();
+// getAllProjects()[indexOfProject].incrementNumberOfToDo();
+
+// const indexOfToDo = getSpecificToDo(toDoArray[0].getId);
+// const getTheTodo = getAllToDo()[indexOfToDo];
+// getTheTodo.setTitle = "Letchon Mikay";
+// getTheTodo.setDescription ="Time to letchon";
+// getTheTodo.setDueDate = "Ugma na";
+// getTheTodo.setPriority = "100";
+// getTheTodo.setStatus = "Ongoing";
+// getTheTodo.setProjectIdReference = "NONE";
+
+// console.log(toDoArray, "ALL TO DO!");
+
+// console.log(projectArray, "All projects!");
+
+
+
+// console.log(getSpecificToDo(toDoArray[0].getId),"found!!");
+// console.log(getAllToDoInProject(projectArray[0].getProjectId), "printing everythiung")
+// console.log(getSpecificProject(projectArray[0].getProjectId), "should return 0", projectArray[0].getProjectId);
 
