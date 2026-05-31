@@ -1,19 +1,21 @@
 import reset from "./comeauReset.css"
 import styles from "./styles.css";
-import ToDoProject from "./ToDoProject.js";
+import * as ToDoProject from "./ToDoProject.js";
+import {renderAllProjects} from "./RenderUi.js";
 
 const content = document.querySelector(".content");
 const projectDialog = document.querySelector("#add-project-dialog")
+const inputProjectName = document.querySelector("#project-name");
 
 content.addEventListener('click',(event)=>{
     const target = event.target;
-    if(target.id == "submit-create-project"){
-        projectDialog.close();
-        event.preventDefault();
-    }
-    if(target.closest("#add-task-menu")){
-        console.log("Add NEW TASKK!!!");
-    }else if(target.closest("#add-project-btn")){
-        console.log("Add NEW PROJECT!!!");
+    switch(target.id){
+        case "submit-create-project":
+            const projectName = inputProjectName.value;
+            ToDoProject.addNewProject(projectName);
+            projectDialog.close();
+            renderAllProjects();
+            event.preventDefault();
+            break;
     }
 })
