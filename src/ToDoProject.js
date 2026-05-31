@@ -82,3 +82,4 @@ const deleteSpecificProject = (projectIndex) =>{
 // console.log(getAllToDoInProject(projectArray[0].getProjectId), "printing everythiung")
 // console.log(getSpecificProjectIndex(projectArray[0].getProjectId), "should return 0", projectArray[0].getProjectId);
 
+export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getAllToDoInProject, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject};
