@@ -1,8 +1,7 @@
 import * as ToDoProject from "./ToDoProject.js";
 
-const projectListDiv = document.querySelector("#list-of-projects")
 
-const renderAllProjects = ()=>{
+const renderAllProjects = (parentElement)=> {
     const allProjects = ToDoProject.getAllProjects();
     allProjects.forEach((item)=>{
        const projectItemDiv =  document.createElement("div");
@@ -15,10 +14,16 @@ const renderAllProjects = ()=>{
        hashTagSvgElement.outerHTML = hashtagSvg;
 
        projectItemDiv.appendChild(projectTitleP);
-       projectListDiv.appendChild(projectItemDiv);
+       parentElement.appendChild(projectItemDiv);
     })
 
     console.log("Successfully rendered all projects!")
 }
 
-export {renderAllProjects};
+const deleteAllChild = (parentElement) =>{
+    while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+    };
+}
+
+export {renderAllProjects,deleteAllChild};
