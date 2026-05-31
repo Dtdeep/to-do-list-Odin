@@ -22,11 +22,10 @@
         width: 24px;
         height: 24px;
     }
-
-    button{
+}
+.add-task-div > button, .add-project-div>button{
         background-color: transparent;
         border: none;
-    }
 }
 
 .add-task-div{

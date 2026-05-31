@@ -23,7 +23,7 @@
             <div class="projects-div">
                 <div class="add-project-div">
                     <h2>My Projects</h2>
-                    <button id="add-project-btn">
+                    <button id="add-project-btn" command="show-modal" commandfor="add-project-dialog">
                         <svg width="123px" height="123px" viewBox="-8.64 -8.64 49.28 49.28" id="i-plus" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.496">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
@@ -31,6 +31,15 @@
                             </g>
                         </svg>
                     </button>
+                    <dialog id="add-project-dialog">
+                        <form action="">
+                            <label for="project-name"></label>
+                            <input id="project-name" type="text">
+
+                            <button type="submit" id="submit-create-project">Create Project</button>
+                        </form>
+                        <button commandfor="add-project-dialog" command="close">Cancel</button>
+                    </dialog>
                 </div>
                 <div id="list-of-projects">
                     <div>
