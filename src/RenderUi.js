@@ -5,6 +5,7 @@ const renderAllProjects = (parentElement)=> {
     const allProjects = ToDoProject.getAllProjects();
     allProjects.forEach((item)=>{
        const projectItemDiv =  document.createElement("div");
+       projectItemDiv.dataset.id = item.getProjectId;
        projectItemDiv.classList.add("project-item-div");
        const projectTitleP = document.createElement("p");
        projectTitleP.textContent = item.getProjectTitle;
