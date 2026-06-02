@@ -7,13 +7,13 @@ export default class ToDo{
     #status;
     #projectIdReference;
 
-    constructor(title,description,dueDate,priority,status,projectIdReference){
+    constructor(title,description,dueDate,priority,projectIdReference){
         this.#id = crypto.randomUUID();
         this.#title = title;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
-        this.#status = status;
+        this.#status = false;
         this.#projectIdReference = projectIdReference;
     }
 
@@ -61,8 +61,8 @@ export default class ToDo{
         this.priority = newPriority;
     }
 
-    set setStatus(newStatus){
-        this.#status = newStatus;
+    reverseStatus(){
+        this.#status = !this.#status;
     }
 
     set setProjectIdReference(newProjectIdReference){

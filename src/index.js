@@ -21,31 +21,35 @@ content.addEventListener('click',(event)=>{
             deleteAllChild(projectListDiv);
             renderAllProjects(projectListDiv);
             inputProjectName.value = "";
+            deleteAllChild(selectProjectInput);
             renderAllProjectsToSelectInput(selectProjectInput);
             event.preventDefault();
             break;
         case "submit-create-task":
-            const titleInput = "";
-            const descriptionInput = "";
-            const dueDateInput = "";
-            const priorityInput = "";
-            const statusInput = "";
-            const projectIdReferenceDataset = "";
+            const titleInput = document.querySelector("#task-name");
+            const descriptionInput = document.querySelector("#task-description");
+            const dueDateInput = document.querySelector("#task-due-date");
+            const priorityInput = document.querySelector("#task-priority");
+            const projectIdReferenceInput = document.querySelector("#select-project-input");
 
-            const taskTitle = "";
-            const taskDescription = "";
-            const taskDueDate = "";
-            const taskPriority = "";
-            const taskStatus = "";
-            const taskProjectIdReference = "";
-            console.log("baho is mikay");
+            const taskTitle = titleInput.value;
+            const taskDescription = descriptionInput.value;
+            const taskDueDate = dueDateInput.value;
+            const taskPriority = priorityInput.value;
+            const taskProjectIdReference = projectIdReferenceInput.value;
+
+            ToDoProject.addNewTask(taskTitle,taskDescription,taskDueDate,taskPriority,taskProjectIdReference);
+
+            console.log(ToDoProject.getAllToDo());
             event.preventDefault();
             break;
     }
     
     if(target.closest(".project-item-div")){
+        const ulTasks = document.querySelector(".ul-tasks");
         console.log(target.closest(".project-item-div").dataset.id);
-        renderAllToDosInProject(target.closest(".project-item-div").dataset.id);
+        deleteAllChild(ulTasks);
+        renderAllToDosInProject(target.closest(".project-item-div").dataset.id,ulTasks);
     }
 
     // if(target.closest("#add-task-menu")){
