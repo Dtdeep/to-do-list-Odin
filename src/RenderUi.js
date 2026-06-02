@@ -1,5 +1,10 @@
 import * as ToDoProject from "./ToDoProject.js";
 
+const deleteAllChild = (parentElement) =>{
+    while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+    };
+}
 
 const renderAllProjects = (parentElement)=> {
     const allProjects = ToDoProject.getAllProjects();
@@ -17,14 +22,26 @@ const renderAllProjects = (parentElement)=> {
        projectItemDiv.appendChild(projectTitleP);
        parentElement.appendChild(projectItemDiv);
     })
-
     console.log("Successfully rendered all projects!")
 }
 
-const deleteAllChild = (parentElement) =>{
-    while (parentElement.firstChild) {
-        parentElement.removeChild(parentElement.firstChild);
-    };
+const renderAllProjectsToSelectInput = (parentElement) =>{
+    const allProjects = ToDoProject.getAllProjects();
+    allProjects.forEach((item)=>{
+        const projectOption = document.createElement("option");
+        projectOption.text = item.getProjectTitle;
+        projectOption.value = item.getProjectId;
+        parentElement.appendChild(projectOption);
+    });
 }
 
-export {renderAllProjects,deleteAllChild};
+const renderAllToDosInProject = (projectReferenceId) =>{
+    const allToDos = ToDoProject.getAllProjects();
+    allToDos.forEach((item)=>{
+        if(item.getProjectIdReference == projectReferenceId){
+            console.log("mikay")
+        }
+    })
+}
+
+export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput};

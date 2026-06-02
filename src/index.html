@@ -28,18 +28,23 @@
                             <input id="task-description" type="text">
 
                             <label for="task-due-date">Due Date: </label>
-                            <input id="task-due-date" type="text">
+                            <input id="task-due-date" type="date">
 
                             <label for="task-priority">Priority: </label>
-                            <input id="task-priority" type="text">
+                            <select id="task-priority">
+                                <option value="1">Priority 1</option>
+                                <option value="2">Priority 2</option>
+                                <option value="3">Priority 3</option>
+                                <option value="4"> Priority 4</option>
+                            </select>
 
-                            <label for="task-status">Status: </label>
-                            <input id="task-status" type="text">
+                            <label for="select-project-input">Project: </label>
+                            <select id="select-project-input">
+                                <option value="">Select Project</option>
+                                <!-- A list of project's name with the value being their getProjectId -->
+                            </select>
 
-                            <label for="task-projectIdReference">Project: </label>
-                            <input id="task-projectIdReference" type="text">
-
-                            <button type="submit" id="submit-create-task">Create Project</button>
+                            <button type="submit" id="submit-create-task">Create Task</button>
                         </form>
                         <button commandfor="add-task-dialog" command="close">Cancel</button>
                 </dialog>
