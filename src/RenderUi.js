@@ -78,5 +78,14 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
     })
 }
 
+const renderProjectTitleToTaskMain = (projectId,element) =>{
+    const allProjects = ToDoProject.getAllProjects();
+    allProjects.forEach((item)=>{
+        if(item.getProjectId == projectId){
+            element.textContent = item.getProjectTitle;
+        }
+    })
+}
 
-export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput};
+
+export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain};

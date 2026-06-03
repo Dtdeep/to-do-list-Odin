@@ -1,11 +1,12 @@
 import reset from "./comeauReset.css"
 import styles from "./styles.css";
 import * as ToDoProject from "./ToDoProject.js";
-import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput} from "./RenderUi.js";
+import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain} from "./RenderUi.js";
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
 renderAllProjectsToSelectInput(selectProjectInput);
+
 
 
 content.addEventListener('click',(event)=>{
@@ -24,7 +25,6 @@ content.addEventListener('click',(event)=>{
             deleteAllChild(selectProjectInput);
             renderAllProjectsToSelectInput(selectProjectInput);
             event.preventDefault();
-            break;
         case "submit-create-task":
             const titleInput = document.querySelector("#task-name");
             const descriptionInput = document.querySelector("#task-description");
@@ -47,9 +47,10 @@ content.addEventListener('click',(event)=>{
     
     if(target.closest(".project-item-div")){
         const ulTasks = document.querySelector(".ul-tasks");
-        console.log(target.closest(".project-item-div").dataset.id);
+        const taskProjectTitle = document.querySelector(".task-project-title");
         deleteAllChild(ulTasks);
-        renderAllToDosInProject(target.closest(".project-item-div").dataset.id,ulTasks);
+        renderProjectTitleToTaskMain(target.closest(".project-item-div").dataset.id,taskProjectTitle);
+        renderAllToDosInProject(target.closest(".project-item-div").dataset.id,ulTasks, taskProjectTitle);
     }
 
     // if(target.closest("#add-task-menu")){
