@@ -144,3 +144,26 @@ div.task-button.priority1{
     background-color: red;
 
 }
+
+.project-item-div{
+    display:flex;
+    margin-right: auto;
+}
+
+.delete-project-button{
+    padding: 1px 6px;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    width: 28px;
+    height: 28px;
+    svg{
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.project-title{
+    margin-right: auto;
+
+}

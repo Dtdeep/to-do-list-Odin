@@ -29,6 +29,15 @@
 -think of a way to make a simple solution that changes a Project Object's title and another that increments the number of Todo
 
 ## UI renderer
+for some reason clicking a project with zero todos will render one empty task.
+
+A project should be deletable by clicking a trash can button on its right side
+
+There should always be one project, deleting a project when there is only one is not allowed.
+
+clicking the circle button of the task should flip its status. status that is "true" should be deleted.
+
+Fix the styling stuff and design.
 
 
 

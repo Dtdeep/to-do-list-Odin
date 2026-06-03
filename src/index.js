@@ -7,8 +7,6 @@ const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
 renderAllProjectsToSelectInput(selectProjectInput);
 
-
-
 content.addEventListener('click',(event)=>{
     const target = event.target;
     switch(target.id){
