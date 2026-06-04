@@ -13,7 +13,10 @@ const descriptionInput = document.querySelector("#task-description");
 const dueDateInput = document.querySelector("#task-due-date");
 const priorityInput = document.querySelector("#task-priority");
 const projectIdReferenceInput = document.querySelector("#select-project-input");
+ToDoProject.addNewProject("Default Project");
 renderAllProjectsToSelectInput(selectProjectInput);
+deleteAllChild(projectListDiv);
+renderAllProjects(projectListDiv);
 
 content.addEventListener('click',(event)=>{
     const target = event.target;
@@ -53,7 +56,6 @@ content.addEventListener('click',(event)=>{
     }
 
     if(target.closest(".delete-project-button")){
-        console.log("deleted: ", target.closest(".delete-project-button").dataset.id);
         const idToDelete = target.closest(".delete-project-button").dataset.id;
         const deleteIndex = ToDoProject.getSpecificProjectIndex(idToDelete);
         ToDoProject.deleteSpecificProject(deleteIndex);

@@ -46,7 +46,12 @@ const deleteSpecificToDo = (toDoIndex) =>{
 }
 
 const deleteSpecificProject = (projectIndex) =>{
-    projectArray.splice(projectIndex,1);
+    if(projectArray.length <= 1){
+        console.log("There should always be one Project at all times");
+    }else{
+        projectArray.splice(projectIndex,1);
+    }
+
 }
 
 // const deleteProject = (projectId) =>{

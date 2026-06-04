@@ -29,14 +29,11 @@
 -think of a way to make a simple solution that changes a Project Object's title and another that increments the number of Todo
 
 ## UI renderer
-A project should be deletable by clicking a trash can button on its right side
-
 There should always be one project, deleting a project when there is only one is not allowed.
 
 clicking the circle button of the task should flip its status. status that is "true" should be deleted.
 
 Fix the styling stuff and design.
-
 
 
 <!-- - create a fresh ToDo object put it into your selected Project Object via Project.id. Its weird to do all the logic in one function so create this into a separate function then call this in the main function. so basically a function that accepts an object ToDo and an id of the selected Project object -->
