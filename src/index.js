@@ -23,6 +23,7 @@ content.addEventListener('click',(event)=>{
             deleteAllChild(selectProjectInput);
             renderAllProjectsToSelectInput(selectProjectInput);
             event.preventDefault();
+            break;
         case "submit-create-task":
             const titleInput = document.querySelector("#task-name");
             const descriptionInput = document.querySelector("#task-description");
@@ -49,6 +50,10 @@ content.addEventListener('click',(event)=>{
         deleteAllChild(ulTasks);
         renderProjectTitleToTaskMain(target.closest(".project-item-div").dataset.id,taskProjectTitle);
         renderAllToDosInProject(target.closest(".project-item-div").dataset.id,ulTasks, taskProjectTitle);
+    }
+
+    if(target.closest(".delete-project-button")){
+        console.log("deleted");
     }
 
     // if(target.closest("#add-task-menu")){

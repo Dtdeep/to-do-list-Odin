@@ -48,8 +48,9 @@ const renderAllProjectsToSelectInput = (parentElement) =>{
 
 const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
     const allToDos = ToDoProject.getAllToDo();
+    
     allToDos.forEach((item)=>{
-        if(item.getProjectIdReference == projectReferenceId){
+      if(item.getProjectIdReference == projectReferenceId){
             const toDoLi = document.createElement("li");
             
             const taskButtonElement = document.createElement("button");
