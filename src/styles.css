@@ -147,7 +147,7 @@ div.task-button.priority1{
 
 .project-item-div{
     display:flex;
-    margin-right: auto;
+    width: 100%;
 }
 
 .delete-project-button{

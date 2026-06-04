@@ -49,6 +49,14 @@ const deleteSpecificProject = (projectIndex) =>{
     projectArray.splice(projectIndex,1);
 }
 
+// const deleteProject = (projectId) =>{
+//     const allProjects = ToDoProject.getAllProjects();
+//     const deleteIndex = allProjects.findIndex((item)=>{
+//         return item.getProjectId == projectId;
+//     });
+//     allProjects.splice(deleteIndex,1);
+// }
+
 // addNewProject("Mikay Project");
 // addNewProject("Baho Project");
 

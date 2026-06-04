@@ -5,15 +5,21 @@ import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllPro
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
+const inputProjectName = document.querySelector("#project-name");
+const projectDialog = document.querySelector("#add-project-dialog")
+const projectListDiv = document.querySelector("#list-of-projects")
+const titleInput = document.querySelector("#task-name");
+const descriptionInput = document.querySelector("#task-description");
+const dueDateInput = document.querySelector("#task-due-date");
+const priorityInput = document.querySelector("#task-priority");
+const projectIdReferenceInput = document.querySelector("#select-project-input");
 renderAllProjectsToSelectInput(selectProjectInput);
 
 content.addEventListener('click',(event)=>{
     const target = event.target;
     switch(target.id){
         case "submit-create-project":
-            const inputProjectName = document.querySelector("#project-name");
-            const projectDialog = document.querySelector("#add-project-dialog")
-            const projectListDiv = document.querySelector("#list-of-projects")
+
             const projectName = inputProjectName.value;
             ToDoProject.addNewProject(projectName);
             projectDialog.close();
@@ -25,12 +31,6 @@ content.addEventListener('click',(event)=>{
             event.preventDefault();
             break;
         case "submit-create-task":
-            const titleInput = document.querySelector("#task-name");
-            const descriptionInput = document.querySelector("#task-description");
-            const dueDateInput = document.querySelector("#task-due-date");
-            const priorityInput = document.querySelector("#task-priority");
-            const projectIdReferenceInput = document.querySelector("#select-project-input");
-
             const taskTitle = titleInput.value;
             const taskDescription = descriptionInput.value;
             const taskDueDate = dueDateInput.value;
@@ -53,7 +53,14 @@ content.addEventListener('click',(event)=>{
     }
 
     if(target.closest(".delete-project-button")){
-        console.log("deleted");
+        console.log("deleted: ", target.closest(".delete-project-button").dataset.id);
+        const idToDelete = target.closest(".delete-project-button").dataset.id;
+        const deleteIndex = ToDoProject.getSpecificProjectIndex(idToDelete);
+        ToDoProject.deleteSpecificProject(deleteIndex);
+        deleteAllChild(projectListDiv);
+        renderAllProjects(projectListDiv);
+        deleteAllChild(selectProjectInput);
+        renderAllProjectsToSelectInput(selectProjectInput);
     }
 
     // if(target.closest("#add-task-menu")){
