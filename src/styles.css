@@ -15,7 +15,6 @@
 }
 .add-task-div{
     margin: 0px 12px;
-
 }
 
 .add-task-div, .add-project-div{
@@ -81,6 +80,7 @@
     margin: 0 auto;
 
     li{
+        position: relative;
         display: grid;
         grid-template-columns: 24px 1fr;
         border-bottom: solid 1px black;
@@ -148,6 +148,21 @@ div.task-button.priority1{
 .project-item-div{
     display:flex;
     width: 100%;
+}
+
+.delete-task-button{
+    padding: 1px 6px;
+    position: absolute;
+    right: 2px;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    width: 28px;
+    height: 28px;
+    svg{
+        width: 24px;
+        height: 24px;
+    }
 }
 
 .delete-project-button{

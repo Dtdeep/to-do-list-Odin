@@ -14,6 +14,27 @@ const addNewProject = (projectTitle) =>{
     projectArray.push(newProject);
 }
 
+// const getAllCompleted = () =>{
+//     const completedArray = toDoArray.filter((item,index)=>{
+//         if(item.getStatus == true){
+//             indexToBeDeleted.push(index);
+//             return item;
+//         }
+//     })
+//     for(let i = 0; i < indexToBeDeleted.length; i++){
+//         toDoArray.splice(indexToBeDeleted[i], 1);
+//     }
+//     return completedArray;
+// }
+
+// const deleteAllCompletedTask = () =>{
+//     toDoArray.forEach((item) =>{
+//         if(item.getStatus == true){
+
+//         }
+//     })
+// }
+
 const getAllProjects = () =>{
     return projectArray;
 }
@@ -28,20 +49,14 @@ const getSpecificProjectIndex = (projectId) =>{
     });
 }
 
-const getAllToDoInProject = (projectId) => {
-    const newArray = toDoArray.filter((toDoItem)=>{
-        return toDoItem.getProjectIdReference == projectId;
-    })
-    return newArray;
-}
-
 const getSpecificToDoIndex = (toDoId) =>{
     return toDoArray.findIndex((toDoItem)=>{
         return toDoItem.getId == toDoId;
     })
 }
 
-const deleteSpecificToDo = (toDoIndex) =>{
+const deleteSpecificToDo = (toDoId) =>{
+    const toDoIndex = getSpecificToDoIndex(toDoId);
     toDoArray.splice(toDoIndex, 1);
 }
 
@@ -95,4 +110,4 @@ const deleteSpecificProject = (projectIndex) =>{
 // console.log(getAllToDoInProject(projectArray[0].getProjectId), "printing everythiung")
 // console.log(getSpecificProjectIndex(projectArray[0].getProjectId), "should return 0", projectArray[0].getProjectId);
 
-export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getAllToDoInProject, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject};
+export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject};

@@ -65,6 +65,19 @@ content.addEventListener('click',(event)=>{
         renderAllProjectsToSelectInput(selectProjectInput);
     }
 
+    if(target.closest(".task-button")){
+        console.log("Successfully Completed the task: ", target.closest(".task-button").dataset.id);
+        const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").dataset.id);
+        const allToDo = ToDoProject.getAllToDo();
+        allToDo[toDoIndex].reverseStatus();
+        console.log(allToDo[toDoIndex]);
+    }
+
+    if(target.closest(".delete-task-button")){
+        console.log("Successfully deleted this task!", target.closest(".delete-task-button").dataset.id);
+        ToDoProject.deleteSpecificToDo(target.closest(".delete-task-button").dataset.id);
+    }
+
     // if(target.closest("#add-task-menu")){
     //     console.log("Add NEW TASKK!!!");
     // }else if(target.closest("#add-project-btn")){

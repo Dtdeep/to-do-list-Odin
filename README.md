@@ -21,7 +21,6 @@
 
 -A function that  using the provided index of a ToDo object in the ToDoArray. we use the proper setter of the ToDo object to change its field's values. a ToDo object should be able to change Project.
 
-
 - a function that renders all Project Object.
 
 - a function that renders all ToDo Project based on Project object's ID.
@@ -29,12 +28,27 @@
 -think of a way to make a simple solution that changes a Project Object's title and another that increments the number of Todo
 
 ## UI renderer
-There should always be one project, deleting a project when there is only one is not allowed.
 
-clicking the circle button of the task should flip its status. status that is "true" should be deleted.
+
+Expand a single todo to see/edit its details.
+
+save the stuff to a json file local host stuff.
+
+an object whose status that is "true" should have a circle with checked button and its whole div a little transparent.
 
 Fix the styling stuff and design.
 
+Creating a task without a title should not be allowed.
+
+Creating a project without a title should not be allowed.
+
+deleting a project should also delete each of its tasks give a warning to the user.
+
+DELETEING A TO DO should reload the main-content task lists
+
+adding a to do should reload the main-content task lists
+
+clicking the task-content div will show the dialog. The dialog is shown using javascript. be careful using closest since the trashcan delete button is overlapping the task-content div. The two might if statements might run together.
 
 <!-- - create a fresh ToDo object put it into your selected Project Object via Project.id. Its weird to do all the logic in one function so create this into a separate function then call this in the main function. so basically a function that accepts an object ToDo and an id of the selected Project object -->
 
