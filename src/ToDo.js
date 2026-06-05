@@ -34,7 +34,7 @@ export default class ToDo{
     }
 
     get getPriority(){
-        return this.priority;
+        return this.#priority;
     }
 
     get getStatus(){
@@ -58,7 +58,7 @@ export default class ToDo{
     }
 
     set setPriority(newPriority){
-        this.priority = newPriority;
+        this.#priority = newPriority;
     }
 
     reverseStatus(){

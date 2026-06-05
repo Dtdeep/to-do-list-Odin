@@ -22,7 +22,7 @@
                 <dialog id="add-task-dialog">
                         <form action="">
                             <label for="task-name">Task Title: </label>
-                            <input id="task-name" type="text">
+                            <input id="task-name" type="text" required>
 
                             <label for="task-description">Task Description: </label>
                             <input id="task-description" type="text">
@@ -62,7 +62,7 @@
                     <dialog id="add-project-dialog">
                         <form action="">
                             <label for="project-name">Project Title: </label>
-                            <input id="project-name" type="text">
+                            <input id="project-name" type="text" required>
                             <button type="submit" id="submit-create-project">Create Project</button>
                         </form>
                         <button commandfor="add-project-dialog" command="close">Cancel</button>
@@ -75,7 +75,7 @@
         </div>
         <div id="main-content">
             <div class="task-container">
-                <h2 class="task-project-title">My Project Name</h2>
+                <h2 class="task-project-title"></h2>
                 <ul class="ul-tasks">
                     <!-- naay dialog diria na wala pay command then each tasks kay naay sariling invoker command na i open ni na dialog -->
                     <!-- To Do tasks gets dynamically appended here -->

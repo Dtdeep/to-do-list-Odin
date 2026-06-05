@@ -1,7 +1,7 @@
 import reset from "./comeauReset.css"
 import styles from "./styles.css";
 import * as ToDoProject from "./ToDoProject.js";
-import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain} from "./RenderUi.js";
+import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask} from "./RenderUi.js";
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
@@ -13,10 +13,21 @@ const descriptionInput = document.querySelector("#task-description");
 const dueDateInput = document.querySelector("#task-due-date");
 const priorityInput = document.querySelector("#task-priority");
 const projectIdReferenceInput = document.querySelector("#select-project-input");
+const addTaskDialog = document.querySelector("#add-task-dialog");
+const submitCreateTask = document.querySelector("#submit-create-task");
+const ulTasks = document.querySelector(".ul-tasks");
+const taskProjectTitle = document.querySelector(".task-project-title");
+
+
 ToDoProject.addNewProject("Default Project");
+let CURRENTPROJECTID = ToDoProject.getAllProjects()[0].getProjectId;
+renderProjectTitleToTaskMain(CURRENTPROJECTID,taskProjectTitle)
 renderAllProjectsToSelectInput(selectProjectInput);
 deleteAllChild(projectListDiv);
 renderAllProjects(projectListDiv);
+deleteAllChild(ulTasks);
+renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+
 
 content.addEventListener('click',(event)=>{
     const target = event.target;
@@ -42,21 +53,38 @@ content.addEventListener('click',(event)=>{
 
             ToDoProject.addNewTask(taskTitle,taskDescription,taskDueDate,taskPriority,taskProjectIdReference);
 
-            console.log(ToDoProject.getAllToDo());
+            deleteAllChild(ulTasks);
+            renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+            event.preventDefault();
+            break;
+        case "submit-edit-task":
+            console.log("Successfully Edited");
+            const toDoId = target.dataset.id;
+            const allToDo = ToDoProject.getAllToDo();
+            const editIndex = ToDoProject.getSpecificToDoIndex(toDoId);
+            const taskObject = allToDo[editIndex];
+            console.log(taskObject);
+            taskObject.setTitle = titleInput.value;
+            taskObject.setDescription = descriptionInput.value;
+            taskObject.setDueDate = dueDateInput.value;
+            taskObject.setPriority = priorityInput.value;
+            taskObject.setProjectIdReference = projectIdReferenceInput.value;
+            deleteAllChild(ulTasks);
+            renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+            //editing using setters doesnt work for some reason
             event.preventDefault();
             break;
     }
     
     if(target.closest(".project-item-div")){
-        const ulTasks = document.querySelector(".ul-tasks");
-        const taskProjectTitle = document.querySelector(".task-project-title");
+        CURRENTPROJECTID = target.closest(".project-item-div").parentElement.dataset.id;
         deleteAllChild(ulTasks);
-        renderProjectTitleToTaskMain(target.closest(".project-item-div").dataset.id,taskProjectTitle);
-        renderAllToDosInProject(target.closest(".project-item-div").dataset.id,ulTasks, taskProjectTitle);
+        renderProjectTitleToTaskMain(target.closest(".project-item-div").parentElement.dataset.id,taskProjectTitle);
+        renderAllToDosInProject(target.closest(".project-item-div").parentElement.dataset.id,ulTasks, taskProjectTitle);
     }
 
     if(target.closest(".delete-project-button")){
-        const idToDelete = target.closest(".delete-project-button").dataset.id;
+        const idToDelete = target.closest(".delete-project-button").parentElement.dataset.id;
         const deleteIndex = ToDoProject.getSpecificProjectIndex(idToDelete);
         ToDoProject.deleteSpecificProject(deleteIndex);
         deleteAllChild(projectListDiv);
@@ -66,8 +94,8 @@ content.addEventListener('click',(event)=>{
     }
 
     if(target.closest(".task-button")){
-        console.log("Successfully Completed the task: ", target.closest(".task-button").dataset.id);
-        const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").dataset.id);
+        console.log("Successfully Completed the task: ", target.closest(".task-button").parentElement.dataset.id);
+        const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").parentElement.dataset.id);
         const allToDo = ToDoProject.getAllToDo();
         allToDo[toDoIndex].reverseStatus();
         console.log(allToDo[toDoIndex]);
@@ -75,12 +103,31 @@ content.addEventListener('click',(event)=>{
 
     if(target.closest(".delete-task-button")){
         console.log("Successfully deleted this task!", target.closest(".delete-task-button").dataset.id);
-        ToDoProject.deleteSpecificToDo(target.closest(".delete-task-button").dataset.id);
+        ToDoProject.deleteSpecificToDo(target.closest(".delete-task-button").parentElement.dataset.id);
+        deleteAllChild(ulTasks);
+        renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
     }
+    
+    if(target.closest(".task-content")){
+        const taskId = target.closest(".task-content").parentElement.dataset.id;
+        console.log("edit!");
+        createTaskToEditTask(submitCreateTask);
+        submitCreateTask.dataset.id = taskId;
 
-    // if(target.closest("#add-task-menu")){
-    //     console.log("Add NEW TASKK!!!");
-    // }else if(target.closest("#add-project-btn")){
-    //     console.log("Add NEW PROJECT!!!");
-    // }
+        const allToDo = ToDoProject.getAllToDo();
+        const editIndex = ToDoProject.getSpecificToDoIndex(taskId);
+        const taskObject = allToDo[editIndex];
+
+        titleInput.value = taskObject.getTitle;
+        descriptionInput.value = taskObject.getDescription;
+        dueDateInput.value = taskObject.getDueDate;
+        priorityInput.value = taskObject.getPriority;
+        projectIdReferenceInput.value = taskObject.getProjectIdReference;
+        addTaskDialog.showModal();
+    }   
+
+
+    if(target.closest("#add-task-menu")){
+         editTaskToCreateTask(submitCreateTask);
+    }
 })

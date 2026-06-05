@@ -30,8 +30,6 @@
 ## UI renderer
 
 
-Expand a single todo to see/edit its details.
-
 save the stuff to a json file local host stuff.
 
 an object whose status that is "true" should have a circle with checked button and its whole div a little transparent.
@@ -49,6 +47,9 @@ DELETEING A TO DO should reload the main-content task lists
 adding a to do should reload the main-content task lists
 
 clicking the task-content div will show the dialog. The dialog is shown using javascript. be careful using closest since the trashcan delete button is overlapping the task-content div. The two might if statements might run together.
+
+
+ang task-content butangan og dataset.id na tarong. pag click ana ma search dayon tong todo task na naa atong id then i fill up dayong ang mga content tidtoa na input like description and stuff. para i edit well naa naman ang object so mag setter stuff na dayon ato na object then boom
 
 <!-- - create a fresh ToDo object put it into your selected Project Object via Project.id. Its weird to do all the logic in one function so create this into a separate function then call this in the main function. so basically a function that accepts an object ToDo and an id of the selected Project object -->
 

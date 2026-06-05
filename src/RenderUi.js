@@ -1,4 +1,5 @@
 import * as ToDoProject from "./ToDoProject.js";
+import { formatDistanceToNowStrict } from "date-fns";
 
 const deleteAllChild = (parentElement) =>{
     while (parentElement.firstChild) {
@@ -10,8 +11,8 @@ const renderAllProjects = (parentElement)=> {
     const allProjects = ToDoProject.getAllProjects();
     allProjects.forEach((item)=>{
        const projectDivDelContainer = document.createElement("div");
+       projectDivDelContainer.dataset.id = item.getProjectId;
        const projectItemDiv =  document.createElement("div");
-       projectItemDiv.dataset.id = item.getProjectId;
        projectItemDiv.classList.add("project-item-div");
        const projectTitleP = document.createElement("p");
        projectTitleP.classList.add("project-title");
@@ -23,7 +24,6 @@ const renderAllProjects = (parentElement)=> {
 
        const deleteButton = document.createElement("button");
        deleteButton.classList.add("delete-project-button")
-       deleteButton.dataset.id = item.getProjectId;
        const trashCanSvg = `<svg fill="#ff0000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60.167 60.167" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path> </g></svg>`
        const trashCanSvgElement = document.createElement("div");
        deleteButton.appendChild(trashCanSvgElement);
@@ -53,9 +53,9 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
     allToDos.forEach((item)=>{
       if(item.getProjectIdReference == projectReferenceId){
             const toDoLi = document.createElement("li");
+            toDoLi.dataset.id = item.getId;
             
             const taskButtonElement = document.createElement("button");
-            taskButtonElement.dataset.id = item.getId;
             taskButtonElement.classList.add("task-button")
             const circleSvg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g><path fill="none" d="M0 0h24v24H0"></path><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"></path></g></g></svg>`
             const circleSvgElement = document.createElement("div");
@@ -73,8 +73,10 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
             taskDescriptionElement.classList.add("task-description");
             taskDescriptionElement.textContent = item.getDescription;
             toDoContentDiv.appendChild(taskDescriptionElement);
-            const dueDateDiv = document.createElement("div");
-            dueDateDiv.classList.add("due-date-div");
+
+            if(item.getDueDate != ""){
+                const dueDateDiv = document.createElement("div");
+                dueDateDiv.classList.add("due-date-div");
                 const calendarSvg = `<svg class="calendar-date-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 10H21M7 3V5M17 3V5M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#9564DF" stroke-width="1.32" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`
                 const calendarSvgElement = document.createElement("div");
                 dueDateDiv.appendChild(calendarSvgElement);
@@ -82,14 +84,15 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
                 calendarSvgElement.classList.add("calendar-date-svg");
                 const calendarDateElement = document.createElement("p");
                 calendarDateElement.classList.add("date-text") ;
-                calendarDateElement.textContent = item.getDueDate;
+                calendarDateElement.textContent = formatDistanceToNowStrict(item.getDueDate);
                 dueDateDiv.appendChild(calendarDateElement);
-            toDoContentDiv.appendChild(dueDateDiv);
+                toDoContentDiv.appendChild(dueDateDiv);
+
+            }
             toDoLi.appendChild(toDoContentDiv);
 
             const deleteButton = document.createElement("button");
             deleteButton.classList.add("delete-task-button")
-            deleteButton.dataset.id = item.getId;
             const trashCanSvg = `<svg fill="#ff0000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60.167 60.167" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M54.5,11.667H39.88V3.91c0-2.156-1.754-3.91-3.91-3.91H24.196c-2.156,0-3.91,1.754-3.91,3.91v7.756H5.667 c-0.552,0-1,0.448-1,1s0.448,1,1,1h2.042v40.5c0,3.309,2.691,6,6,6h32.75c3.309,0,6-2.691,6-6v-40.5H54.5c0.552,0,1-0.448,1-1 S55.052,11.667,54.5,11.667z M22.286,3.91c0-1.053,0.857-1.91,1.91-1.91H35.97c1.053,0,1.91,0.857,1.91,1.91v7.756H22.286V3.91z M50.458,54.167c0,2.206-1.794,4-4,4h-32.75c-2.206,0-4-1.794-4-4v-40.5h40.75V54.167z M38.255,46.153V22.847c0-0.552,0.448-1,1-1 s1,0.448,1,1v23.306c0,0.552-0.448,1-1,1S38.255,46.706,38.255,46.153z M29.083,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1 v23.306c0,0.552-0.448,1-1,1S29.083,46.706,29.083,46.153z M19.911,46.153V22.847c0-0.552,0.448-1,1-1s1,0.448,1,1v23.306 c0,0.552-0.448,1-1,1S19.911,46.706,19.911,46.153z"></path> </g></svg>`
             const trashCanSvgElement = document.createElement("div");
             deleteButton.appendChild(trashCanSvgElement);
@@ -110,7 +113,18 @@ const renderProjectTitleToTaskMain = (projectId,element) =>{
     })
 }
 
+const createTaskToEditTask = (element) =>{
+    element.removeAttribute('id');
+    element.setAttribute("id", "submit-edit-task");
+    element.textContent = "Edit Task";
+}
+
+const editTaskToCreateTask = (element) =>{
+    element.removeAttribute('id');
+    element.setAttribute("id","submit-create-task");
+    element.textContent = "Create Task";
+}
 
 
 
-export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain};
+export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask};
