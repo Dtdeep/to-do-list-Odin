@@ -178,6 +178,20 @@ div.task-button.priority1{
     }
 }
 
+.edit-project-button , .save-edit-project-button{
+    padding: 1px 5px;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    width: 28px;
+    height: 28px;
+    svg{
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
 .project-title{
     margin-right: auto;
 

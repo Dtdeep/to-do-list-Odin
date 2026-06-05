@@ -1,7 +1,7 @@
 import reset from "./comeauReset.css"
 import styles from "./styles.css";
 import * as ToDoProject from "./ToDoProject.js";
-import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask} from "./RenderUi.js";
+import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask, projectEditorElement} from "./RenderUi.js";
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
@@ -33,7 +33,6 @@ content.addEventListener('click',(event)=>{
     const target = event.target;
     switch(target.id){
         case "submit-create-project":
-
             const projectName = inputProjectName.value;
             ToDoProject.addNewProject(projectName);
             projectDialog.close();
@@ -107,6 +106,15 @@ content.addEventListener('click',(event)=>{
         deleteAllChild(ulTasks);
         renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
     }
+
+    if(target.closest(".edit-project-button")){
+       const parentElement = target.closest(".edit-project-button").parentElement;
+       const projectId = parentElement.dataset.id;
+       const allProjects = ToDoProject.getAllProjects();
+       const index = ToDoProject.getSpecificProjectIndex(projectId);
+       projectEditorElement(parentElement, allProjects[index].getProjectTitle);
+       //just rerender all projects once the user chooses to click the save project edit button
+    }
     
     if(target.closest(".task-content")){
         const taskId = target.closest(".task-content").parentElement.dataset.id;
@@ -124,7 +132,22 @@ content.addEventListener('click',(event)=>{
         priorityInput.value = taskObject.getPriority;
         projectIdReferenceInput.value = taskObject.getProjectIdReference;
         addTaskDialog.showModal();
-    }   
+    }
+
+    if(target.closest(".save-edit-project-button")){
+        const parentElement = target.closest(".save-edit-project-button").parentElement;
+        const editInputProjectElement = parentElement.querySelector(".edit-project-title-input");
+
+        const projectId = parentElement.dataset.id;
+        const allProjects = ToDoProject.getAllProjects();
+        const index = ToDoProject.getSpecificProjectIndex(projectId);
+        allProjects[index].setProjectTitle = editInputProjectElement.value;
+        deleteAllChild(projectListDiv);
+        renderAllProjects(projectListDiv);
+        deleteAllChild(selectProjectInput);
+        renderAllProjectsToSelectInput(selectProjectInput);
+        
+    }
 
 
     if(target.closest("#add-task-menu")){

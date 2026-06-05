@@ -66,7 +66,6 @@ const deleteSpecificProject = (projectIndex) =>{
     }else{
         projectArray.splice(projectIndex,1);
     }
-
 }
 
 // const deleteProject = (projectId) =>{

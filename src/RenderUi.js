@@ -17,6 +17,7 @@ const renderAllProjects = (parentElement)=> {
        const projectTitleP = document.createElement("p");
        projectTitleP.classList.add("project-title");
        projectTitleP.textContent = item.getProjectTitle;
+
        const hashTagSvgElement = document.createElement("div");
        projectItemDiv.appendChild(hashTagSvgElement);
        const hashtagSvg = `<svg viewBox="-4.56 -4.56 33.12 33.12" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#999999" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7784 1C10.3231 1 9.92838 1.31506 9.82748 1.75902L8.63635 7H5C4.44772 7 4 7.44772 4 8C4 8.55228 4.44772 9 5 9H8.1818L6.81817 15H3C2.44772 15 2 15.4477 2 16C2 16.5523 2.44772 17 3 17H6.36362L5.27072 21.8088C5.13204 22.419 5.59584 23 6.22161 23C6.6769 23 7.07159 22.6849 7.17249 22.241L8.36362 17H13.3636L12.2707 21.8088C12.132 22.419 12.5958 23 13.2216 23C13.6769 23 14.0716 22.6849 14.1725 22.241L15.3636 17H19C19.5523 17 20 16.5523 20 16C20 15.4477 19.5523 15 19 15H15.8182L17.1818 9H21C21.5523 9 22 8.55228 22 8C22 7.44772 21.5523 7 21 7H17.6364L18.7292 2.19124C18.8679 1.58104 18.4041 1 17.7784 1C17.3231 1 16.9284 1.31506 16.8275 1.75902L15.6364 7H10.6363L11.7292 2.19124C11.8679 1.58104 11.4041 1 10.7784 1ZM13.8182 15L15.1818 9H10.1818L8.81817 15H13.8182Z" fill="#0F0F0F"></path></g></svg>`
@@ -29,8 +30,17 @@ const renderAllProjects = (parentElement)=> {
        deleteButton.appendChild(trashCanSvgElement);
        trashCanSvgElement.outerHTML = trashCanSvg;
 
+       const editButton = document.createElement("button");
+       editButton.classList.add("edit-project-button");
+       const editSvgElement = document.createElement("div");
+       const editSvg = `<svg width="190px" height="190px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8400000000000001" d="M3.8 12.963L2 18l4.8-.63L18.11 6.58a2.612 2.612 0 00-3.601-3.785L3.8 12.963z"></path> </g></svg>`
+       editButton.appendChild(editSvgElement);
+       editSvgElement.outerHTML = editSvg;
+       
+
        projectItemDiv.appendChild(projectTitleP);
        projectDivDelContainer.appendChild(projectItemDiv);
+       projectDivDelContainer.appendChild(editButton);
        projectDivDelContainer.appendChild(deleteButton);
        parentElement.appendChild(projectDivDelContainer);
     })
@@ -87,7 +97,6 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
                 calendarDateElement.textContent = formatDistanceToNowStrict(item.getDueDate);
                 dueDateDiv.appendChild(calendarDateElement);
                 toDoContentDiv.appendChild(dueDateDiv);
-
             }
             toDoLi.appendChild(toDoContentDiv);
 
@@ -125,6 +134,24 @@ const editTaskToCreateTask = (element) =>{
     element.textContent = "Create Task";
 }
 
+const projectEditorElement = (parentElement, value) => {
+    deleteAllChild(parentElement);
+    const saveButton = document.createElement("button");
+    saveButton.classList.add("save-edit-project-button");
+    const saveSvgElement = document.createElement("div");
+    const saveSvg = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 20V15H9V20M18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L19.4142 8.41421C19.7893 8.78929 20 9.29799 20 9.82843V18C20 19.1046 19.1046 20 18 20Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+    saveButton.appendChild(saveSvgElement);
+    saveSvgElement.outerHTML = saveSvg;
+
+    const inputElement = document.createElement("input");
+    inputElement.classList.add("edit-project-title-input");
+    inputElement.type = "text";
+    inputElement.value = value;
 
 
-export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask};
+    parentElement.appendChild(inputElement);
+    parentElement.appendChild(saveButton);
+}
+
+
+export {renderAllProjects,deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask, projectEditorElement};
