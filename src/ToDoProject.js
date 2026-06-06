@@ -6,6 +6,26 @@ let toDoArray = [];
 let completedArray = []; 
 let tasksToBeMoved = [];
 
+const saveProjectArrayToLocalStorage = () =>{
+    const projectsToSave = projectArray.map((item)=>{
+        return {
+            projectId: item.getProjectId,
+            projectTitle: item.getProjectTitle,
+            numberOfToDo : item.getNumberOfToDo
+        }
+    })
+    const projectArrayString = JSON.stringify(projectsToSave);
+    localStorage.setItem("projectArray",projectArrayString);
+}
+
+const getProjectArrayFromLocalStorage = () =>{
+    const projectLocalArray = localStorage.getItem("projectArray");
+    const projectLocalArrayObject = JSON.parse(projectLocalArray);
+    projectLocalArrayObject.forEach((item)=>{
+        addNewProject(item.projectTitle,item.projectId,item.numberOfToDo);
+    })
+    console.log("current projects: ",projectArray);
+}
 
 const addNewTask = (title,description,dueDate,priority,status,projectIdReference) =>{
     const newTask = new ToDo(title,description,dueDate,priority,status,projectIdReference);
@@ -89,4 +109,4 @@ const moveCompletedArrayToDoArray = () =>{
     console.log("The whole tasks",toDoArray);
 }
 
-export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray};
+export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray, saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage};

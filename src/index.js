@@ -18,8 +18,11 @@ const submitCreateTask = document.querySelector("#submit-create-task");
 const ulTasks = document.querySelector(".ul-tasks");
 const taskProjectTitle = document.querySelector(".task-project-title");
 
-
-ToDoProject.addNewProject("Default Project");
+ToDoProject.getProjectArrayFromLocalStorage();
+if(ToDoProject.getAllProjects().length < 1){
+    ToDoProject.addNewProject("Default Project");
+    console.log("No projects exists, add default project")
+}
 let CURRENTPROJECTID = ToDoProject.getAllProjects()[0].getProjectId;
 renderProjectTitleToTaskMain(CURRENTPROJECTID,taskProjectTitle)
 renderAllProjectsToSelectInput(selectProjectInput);
@@ -41,6 +44,7 @@ content.addEventListener('click',(event)=>{
             inputProjectName.value = "";
             deleteAllChild(selectProjectInput);
             renderAllProjectsToSelectInput(selectProjectInput);
+            ToDoProject.saveProjectArrayToLocalStorage();
             event.preventDefault();
             break;
         case "submit-create-task":
@@ -90,6 +94,7 @@ content.addEventListener('click',(event)=>{
         renderAllProjects(projectListDiv);
         deleteAllChild(selectProjectInput);
         renderAllProjectsToSelectInput(selectProjectInput);
+        ToDoProject.saveProjectArrayToLocalStorage();
     }
 
     if(target.closest(".task-button")){
@@ -160,7 +165,7 @@ content.addEventListener('click',(event)=>{
         renderAllProjects(projectListDiv);
         deleteAllChild(selectProjectInput);
         renderAllProjectsToSelectInput(selectProjectInput);
-        
+        ToDoProject.saveProjectArrayToLocalStorage();
     }
 
     if(target.closest("#completed-tasks-div")){
