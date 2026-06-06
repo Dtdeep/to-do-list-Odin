@@ -34,6 +34,8 @@ save the stuff to a json file local host stuff.
 
 an object whose status that is "true" should have a circle with checked button and its whole div a little transparent.
 
+There should be a completed Tasks array with its own separate "Project" element.
+
 Fix the styling stuff and design.
 
 Creating a task without a title should not be allowed.
@@ -42,14 +44,19 @@ Creating a project without a title should not be allowed.
 
 deleting a project should also delete each of its tasks give a warning to the user.
 
-DELETEING A TO DO should reload the main-content task lists
+There should be proper text truncation
 
-adding a to do should reload the main-content task lists
+This should work on mobile devices
 
-clicking the task-content div will show the dialog. The dialog is shown using javascript. be careful using closest since the trashcan delete button is overlapping the task-content div. The two might if statements might run together.
+create an add to localStorage function. where running this will save the necessary array into the localStorage. Of course each object should be a string version first before putting it into the localStorage. This should be run whenever the user edits a task or project or adds another task or project or whenever the user completes a task. or whenver the user delets a project/task.
+
+create a function where the local variable arrays are repopulated from the localStorage. This function should be triggered along side adding to localStorage function
+
+create an object to stringyfied version. stringy will automatically make fields a string but not functions so manually make them a string first.
+
+once the status is true, editing the task should not be allowed.
 
 
-ang task-content butangan og dataset.id na tarong. pag click ana ma search dayon tong todo task na naa atong id then i fill up dayong ang mga content tidtoa na input like description and stuff. para i edit well naa naman ang object so mag setter stuff na dayon ato na object then boom
 
 <!-- - create a fresh ToDo object put it into your selected Project Object via Project.id. Its weird to do all the logic in one function so create this into a separate function then call this in the main function. so basically a function that accepts an object ToDo and an id of the selected Project object -->
 

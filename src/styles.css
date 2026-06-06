@@ -151,8 +151,8 @@ div.task-button.priority1{
 }
 
 .delete-task-button{
-    padding: 1px 6px;
     position: absolute;
+    top: -4px;
     right: 2px;
     margin: 0px;
     border: none;
@@ -195,4 +195,14 @@ div.task-button.priority1{
 .project-title{
     margin-right: auto;
 
+}
+
+#completed-tasks-div{
+    margin: 20px 12px;
+    display: flex;
+    gap: 7px;
+    svg{
+        width: 22px;
+
+    }
 }

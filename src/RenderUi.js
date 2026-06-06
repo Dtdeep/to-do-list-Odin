@@ -59,9 +59,14 @@ const renderAllProjectsToSelectInput = (parentElement) =>{
 
 
 const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
-    const allToDos = ToDoProject.getAllToDo();
+    let allToDos = [];
+    if(projectReferenceId == "Completed Task"){
+        allToDos = ToDoProject.getAllCompletedArray();
+    }else{
+        allToDos = ToDoProject.getAllToDo();
+    }
     allToDos.forEach((item)=>{
-      if(item.getProjectIdReference == projectReferenceId){
+      if(item.getProjectIdReference == projectReferenceId || projectReferenceId == "Completed Task"){
             const toDoLi = document.createElement("li");
             toDoLi.dataset.id = item.getId;
             
@@ -74,7 +79,9 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
             toDoLi.appendChild(taskButtonElement);
 
             const toDoContentDiv = document.createElement("div");
-            toDoContentDiv.classList.add("task-content");
+            if(item.getProjectIdReference == projectReferenceId){
+                toDoContentDiv.classList.add("task-content");
+            }
             const taskTitleElement = document.createElement("p");
             taskTitleElement.classList.add("task-title");
             taskTitleElement.textContent = item.getTitle;
@@ -114,6 +121,9 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
 }
 
 const renderProjectTitleToTaskMain = (projectId,element) =>{
+    if(projectId === "Completed Task"){
+        element.textContent = "Completed Task";
+    }
     const allProjects = ToDoProject.getAllProjects();
     allProjects.forEach((item)=>{
         if(item.getProjectId == projectId){

@@ -94,9 +94,23 @@ content.addEventListener('click',(event)=>{
 
     if(target.closest(".task-button")){
         console.log("Successfully Completed the task: ", target.closest(".task-button").parentElement.dataset.id);
-        const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").parentElement.dataset.id);
         const allToDo = ToDoProject.getAllToDo();
-        allToDo[toDoIndex].reverseStatus();
+        const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").parentElement.dataset.id);
+
+        const allCompleted = ToDoProject.getAllCompletedArray();
+        const completedIndex = ToDoProject.getSpecificCompletedIndex(target.closest(".task-button").parentElement.dataset.id);
+        if(toDoIndex != -1){
+            allToDo[toDoIndex].reverseStatus();
+            ToDoProject.moveAllCompletedToCompleteArray();
+        }
+
+        if(completedIndex != -1){
+            allCompleted[completedIndex].reverseStatus();
+            ToDoProject.moveCompletedArrayToDoArray();
+        }
+        deleteAllChild(ulTasks);
+        renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+        //problem is the task when completed are moved to the completed Array however this code always uses the allToDo array so it cannot see object in that array
         console.log(allToDo[toDoIndex]);
     }
 
@@ -149,6 +163,14 @@ content.addEventListener('click',(event)=>{
         
     }
 
+    if(target.closest("#completed-tasks-div")){
+        //needs to be fixed!!
+        console.log("Completed Tasks!");
+        CURRENTPROJECTID = "Completed Task";
+        deleteAllChild(ulTasks);
+        renderProjectTitleToTaskMain(CURRENTPROJECTID,taskProjectTitle);
+        renderAllToDosInProject(CURRENTPROJECTID, ulTasks);
+    }
 
     if(target.closest("#add-task-menu")){
          editTaskToCreateTask(submitCreateTask);
