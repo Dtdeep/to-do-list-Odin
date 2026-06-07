@@ -2,6 +2,7 @@ import reset from "./comeauReset.css"
 import styles from "./styles.css";
 import * as ToDoProject from "./ToDoProject.js";
 import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask, projectEditorElement} from "./RenderUi.js";
+import {saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage,saveTaskArrayToLocalStorage, getTaskArrayFromLocalStorage} from "./localStorage.js";
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
@@ -18,7 +19,8 @@ const submitCreateTask = document.querySelector("#submit-create-task");
 const ulTasks = document.querySelector(".ul-tasks");
 const taskProjectTitle = document.querySelector(".task-project-title");
 
-ToDoProject.getProjectArrayFromLocalStorage();
+getProjectArrayFromLocalStorage();
+getTaskArrayFromLocalStorage();
 if(ToDoProject.getAllProjects().length < 1){
     ToDoProject.addNewProject("Default Project");
     console.log("No projects exists, add default project")
@@ -30,7 +32,6 @@ deleteAllChild(projectListDiv);
 renderAllProjects(projectListDiv);
 deleteAllChild(ulTasks);
 renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
-
 
 content.addEventListener('click',(event)=>{
     const target = event.target;
@@ -44,7 +45,7 @@ content.addEventListener('click',(event)=>{
             inputProjectName.value = "";
             deleteAllChild(selectProjectInput);
             renderAllProjectsToSelectInput(selectProjectInput);
-            ToDoProject.saveProjectArrayToLocalStorage();
+            saveProjectArrayToLocalStorage();
             event.preventDefault();
             break;
         case "submit-create-task":
@@ -55,9 +56,9 @@ content.addEventListener('click',(event)=>{
             const taskProjectIdReference = projectIdReferenceInput.value;
 
             ToDoProject.addNewTask(taskTitle,taskDescription,taskDueDate,taskPriority,taskProjectIdReference);
-
             deleteAllChild(ulTasks);
             renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+            saveTaskArrayToLocalStorage();
             event.preventDefault();
             break;
         case "submit-edit-task":
@@ -74,7 +75,7 @@ content.addEventListener('click',(event)=>{
             taskObject.setProjectIdReference = projectIdReferenceInput.value;
             deleteAllChild(ulTasks);
             renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
-            //editing using setters doesnt work for some reason
+            saveTaskArrayToLocalStorage();
             event.preventDefault();
             break;
     }
@@ -94,29 +95,31 @@ content.addEventListener('click',(event)=>{
         renderAllProjects(projectListDiv);
         deleteAllChild(selectProjectInput);
         renderAllProjectsToSelectInput(selectProjectInput);
-        ToDoProject.saveProjectArrayToLocalStorage();
+        saveProjectArrayToLocalStorage();
     }
 
     if(target.closest(".task-button")){
-        console.log("Successfully Completed the task: ", target.closest(".task-button").parentElement.dataset.id);
         const allToDo = ToDoProject.getAllToDo();
         const toDoIndex = ToDoProject.getSpecificToDoIndex(target.closest(".task-button").parentElement.dataset.id);
 
         const allCompleted = ToDoProject.getAllCompletedArray();
         const completedIndex = ToDoProject.getSpecificCompletedIndex(target.closest(".task-button").parentElement.dataset.id);
         if(toDoIndex != -1){
+            console.log("Successfully Completed the task");
             allToDo[toDoIndex].reverseStatus();
+            console.log("before ",allToDo);
             ToDoProject.moveAllCompletedToCompleteArray();
+            console.log("after2: ", allToDo);
         }
 
         if(completedIndex != -1){
+            console.log("Successfully reverted the task")
             allCompleted[completedIndex].reverseStatus();
             ToDoProject.moveCompletedArrayToDoArray();
         }
         deleteAllChild(ulTasks);
         renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
-        //problem is the task when completed are moved to the completed Array however this code always uses the allToDo array so it cannot see object in that array
-        console.log(allToDo[toDoIndex]);
+        saveTaskArrayToLocalStorage();
     }
 
     if(target.closest(".delete-task-button")){
@@ -124,6 +127,7 @@ content.addEventListener('click',(event)=>{
         ToDoProject.deleteSpecificToDo(target.closest(".delete-task-button").parentElement.dataset.id);
         deleteAllChild(ulTasks);
         renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
+        saveTaskArrayToLocalStorage();
     }
 
     if(target.closest(".edit-project-button")){
@@ -165,11 +169,11 @@ content.addEventListener('click',(event)=>{
         renderAllProjects(projectListDiv);
         deleteAllChild(selectProjectInput);
         renderAllProjectsToSelectInput(selectProjectInput);
-        ToDoProject.saveProjectArrayToLocalStorage();
+        renderProjectTitleToTaskMain(CURRENTPROJECTID,taskProjectTitle);
+        saveProjectArrayToLocalStorage();
     }
 
     if(target.closest("#completed-tasks-div")){
-        //needs to be fixed!!
         console.log("Completed Tasks!");
         CURRENTPROJECTID = "Completed Task";
         deleteAllChild(ulTasks);

@@ -2,10 +2,10 @@ export default class Project{
     #projectId;
     #projectTitle;
     #numberOfToDo;
-    constructor(projectTitle, projectId = null, getNumberOfToDo = null){
+    constructor(projectTitle, projectId = null, numberOfToDo = null){
         this.#projectId = projectId || crypto.randomUUID();
         this.#projectTitle = projectTitle;
-        this.#numberOfToDo = getNumberOfToDo || 0 ;
+        this.#numberOfToDo = numberOfToDo || 0 ;
     }
 
     get getProjectId(){

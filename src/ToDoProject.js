@@ -6,34 +6,13 @@ let toDoArray = [];
 let completedArray = []; 
 let tasksToBeMoved = [];
 
-const saveProjectArrayToLocalStorage = () =>{
-    const projectsToSave = projectArray.map((item)=>{
-        return {
-            projectId: item.getProjectId,
-            projectTitle: item.getProjectTitle,
-            numberOfToDo : item.getNumberOfToDo
-        }
-    })
-    const projectArrayString = JSON.stringify(projectsToSave);
-    localStorage.setItem("projectArray",projectArrayString);
-}
-
-const getProjectArrayFromLocalStorage = () =>{
-    const projectLocalArray = localStorage.getItem("projectArray");
-    const projectLocalArrayObject = JSON.parse(projectLocalArray);
-    projectLocalArrayObject.forEach((item)=>{
-        addNewProject(item.projectTitle,item.projectId,item.numberOfToDo);
-    })
-    console.log("current projects: ",projectArray);
-}
-
 const addNewTask = (title,description,dueDate,priority,status,projectIdReference) =>{
     const newTask = new ToDo(title,description,dueDate,priority,status,projectIdReference);
     toDoArray.push(newTask);
 }
 
-const addNewProject = (projectTitle) =>{
-    const newProject = new Project(projectTitle);
+const addNewProject = (projectTitle, projectId, numberOfToDo) =>{
+    const newProject = new Project(projectTitle,projectId,numberOfToDo);
     projectArray.push(newProject);
 }
 
@@ -91,6 +70,7 @@ const moveAllCompletedToCompleteArray = () =>{
     });
     completedArray = completedArray.concat(tasksToBeMoved);
     toDoArray = newToDo;
+    console.log("after ",toDoArray);
 }
 
 const moveCompletedArrayToDoArray = () =>{
@@ -109,4 +89,4 @@ const moveCompletedArrayToDoArray = () =>{
     console.log("The whole tasks",toDoArray);
 }
 
-export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray, saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage};
+export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray};
