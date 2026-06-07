@@ -6,14 +6,19 @@ let toDoArray = [];
 let completedArray = []; 
 let tasksToBeMoved = [];
 
-const addNewTask = (title,description,dueDate,priority,status,projectIdReference) =>{
-    const newTask = new ToDo(title,description,dueDate,priority,status,projectIdReference);
+const addNewTask = (title,description,dueDate,priority,projectIdReference) =>{
+    const newTask = new ToDo(title,description,dueDate,priority,projectIdReference,status);
     toDoArray.push(newTask);
 }
 
 const addNewProject = (projectTitle, projectId, numberOfToDo) =>{
     const newProject = new Project(projectTitle,projectId,numberOfToDo);
     projectArray.push(newProject);
+}
+
+const addNewCompletedTask = (title,description,dueDate,priority,projectIdReference,status) =>{
+    const newCompletedTask = new ToDo(title,description,dueDate,priority,projectIdReference,status);
+    completedArray.push(newCompletedTask);
 }
 
 const getAllProjects = () =>{
@@ -89,4 +94,4 @@ const moveCompletedArrayToDoArray = () =>{
     console.log("The whole tasks",toDoArray);
 }
 
-export {addNewTask, addNewProject, getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray};
+export {addNewTask, addNewProject, addNewCompletedTask,getAllProjects, getAllToDo, getSpecificProjectIndex, getSpecificToDoIndex, deleteSpecificToDo, deleteSpecificProject, moveAllCompletedToCompleteArray, getAllCompletedArray, getSpecificCompletedIndex, moveCompletedArrayToDoArray};

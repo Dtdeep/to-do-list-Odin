@@ -1,10 +1,7 @@
-import {getAllProjects, getAllToDo,addNewProject,addNewTask} from "./ToDoProject.js";
-
-let projectArray = getAllProjects();
-let taskArray = getAllToDo();
+import {getAllProjects, getAllToDo,getAllCompletedArray,addNewProject,addNewTask,addNewCompletedTask} from "./ToDoProject.js";
 
 const saveProjectArrayToLocalStorage = () =>{
-    projectArray = getAllProjects();
+    const projectArray = getAllProjects();
     const projectsToSave = projectArray.map((item)=>{
         return {
             projectTitle: item.getProjectTitle,
@@ -17,7 +14,7 @@ const saveProjectArrayToLocalStorage = () =>{
 }
 
 const saveTaskArrayToLocalStorage = () =>{
-    taskArray = getAllToDo();
+    const taskArray = getAllToDo();
     console.log("tasks to save", taskArray)// for some reason this is late updated?
     const tasksToSave = taskArray.map((item)=>{
         return {
@@ -26,13 +23,30 @@ const saveTaskArrayToLocalStorage = () =>{
             taskDueDate: item.getDueDate,
             taskPriority: item.getPriority,
             taskProjectIdReference: item.getProjectIdReference,
-            taskId: item.getId,
         }
-    })
+    });
     const tasksToSaveString = JSON.stringify(tasksToSave);
     console.log("Successfully saved: ", tasksToSaveString);
     localStorage.setItem("taskArray", tasksToSaveString);
 }
+
+const saveCompletedArrayToLocalStorage = () =>{
+    const completedArray = getAllCompletedArray();
+    const completedTasksToSave = completedArray.map((item)=>{
+        return {
+            taskTitle: item.getTitle,
+            taskDescription: item.getDescription,
+            taskDueDate: item.getDueDate,
+            taskPriority: item.getPriority,
+            taskProjectIdReference: item.getProjectIdReference,
+            taskStatus: item.getStatus,
+        }
+    });
+    // console.log("Completed Array: ", completedArray);
+    const completedTasksToSaveString = JSON.stringify(completedTasksToSave);
+    // console.log("completed to save", completedTasksToSaveString);
+    localStorage.setItem("completedTasksArray", completedTasksToSaveString);
+};
 
 const getProjectArrayFromLocalStorage = () =>{
     const projectLocalArray = localStorage.getItem("projectArray");
@@ -49,14 +63,22 @@ const getTaskArrayFromLocalStorage = () =>{
     const taskLocalArray = localStorage.getItem("taskArray");
     const taskLocalArrayObject = JSON.parse(taskLocalArray);
     if(taskLocalArrayObject){
-            taskLocalArrayObject.forEach((item, index) =>{
-            addNewTask(item.taskTitle, item.taskDescription, item.taskDueDate,item.taskPriority,item.taskProjectIdReference,item.taskId);
-            console.log("successfully added", index);
+            taskLocalArrayObject.forEach((item) =>{
+            addNewTask(item.taskTitle, item.taskDescription, item.taskDueDate,item.taskPriority,item.taskProjectIdReference);
         })
     }
-    console.log("all Projectss! " ,projectArray)
-    console.log("all current tasks! ",taskArray);
 }
 
+const getCompletedArrayFromLocalStorage = () =>{
+    const completedLocalArray = localStorage.getItem("completedTasksArray");
+    const completedLocalArrayObject = JSON.parse(completedLocalArray);
+    if(completedLocalArrayObject){
+        completedLocalArrayObject.forEach((item)=>{
+            addNewCompletedTask(item.taskTitle, item.taskDescription, item.taskDueDate,item.taskPriority,item.taskProjectIdReference,item.taskStatus);
+        })
+    }
+}
+
+
 // create a function to save and get the completed task array;
-export {saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage,saveTaskArrayToLocalStorage, getTaskArrayFromLocalStorage};
+export {saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage,saveTaskArrayToLocalStorage, getTaskArrayFromLocalStorage, saveCompletedArrayToLocalStorage,getCompletedArrayFromLocalStorage};

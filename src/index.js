@@ -2,7 +2,7 @@ import reset from "./comeauReset.css"
 import styles from "./styles.css";
 import * as ToDoProject from "./ToDoProject.js";
 import {renderAllProjects, deleteAllChild, renderAllToDosInProject, renderAllProjectsToSelectInput, renderProjectTitleToTaskMain,createTaskToEditTask,editTaskToCreateTask, projectEditorElement} from "./RenderUi.js";
-import {saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage,saveTaskArrayToLocalStorage, getTaskArrayFromLocalStorage} from "./localStorage.js";
+import {saveProjectArrayToLocalStorage, getProjectArrayFromLocalStorage,saveTaskArrayToLocalStorage, getTaskArrayFromLocalStorage, saveCompletedArrayToLocalStorage,getCompletedArrayFromLocalStorage} from "./localStorage.js";
 
 const content = document.querySelector(".content");
 const selectProjectInput = document.querySelector("#select-project-input");
@@ -21,6 +21,7 @@ const taskProjectTitle = document.querySelector(".task-project-title");
 
 getProjectArrayFromLocalStorage();
 getTaskArrayFromLocalStorage();
+getCompletedArrayFromLocalStorage();
 if(ToDoProject.getAllProjects().length < 1){
     ToDoProject.addNewProject("Default Project");
     console.log("No projects exists, add default project")
@@ -120,6 +121,7 @@ content.addEventListener('click',(event)=>{
         deleteAllChild(ulTasks);
         renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
         saveTaskArrayToLocalStorage();
+        saveCompletedArrayToLocalStorage();
     }
 
     if(target.closest(".delete-task-button")){

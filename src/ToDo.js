@@ -7,13 +7,13 @@ export default class ToDo{
     #status;
     #projectIdReference;
 
-    constructor(title,description,dueDate,priority,projectIdReference,taskId = null){
-        this.#id = taskId || crypto.randomUUID();
+    constructor(title,description,dueDate,priority,projectIdReference,status = false){
+        this.#id = crypto.randomUUID();
         this.#title = title;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
-        this.#status = false;
+        this.#status = status;
         this.#projectIdReference = projectIdReference;
     }
 
