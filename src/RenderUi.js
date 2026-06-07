@@ -72,10 +72,44 @@ const renderAllToDosInProject = (projectReferenceId, parentElement) =>{
             
             const taskButtonElement = document.createElement("button");
             taskButtonElement.classList.add("task-button")
-            const circleSvg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g><path fill="none" d="M0 0h24v24H0"></path><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"></path></g></g></svg>`
+            if(item.getPriority == 1){
+                taskButtonElement.classList.remove("priority2");
+                taskButtonElement.classList.remove("priority3");
+                taskButtonElement.classList.remove("priority4");
+                taskButtonElement.classList.add("priority1");
+            }else if(item.getPriority == 2){
+                taskButtonElement.classList.remove("priority1");
+                taskButtonElement.classList.remove("priority3");
+                taskButtonElement.classList.remove("priority4");
+                taskButtonElement.classList.add("priority2");
+            }else if(item.getPriority == 3){
+                taskButtonElement.classList.remove("priority2");
+                taskButtonElement.classList.remove("priority1");
+                taskButtonElement.classList.remove("priority4");
+                taskButtonElement.classList.add("priority3");
+            }else if(item.getPriority == 4){
+                taskButtonElement.classList.remove("priority2");
+                taskButtonElement.classList.remove("priority3");
+                taskButtonElement.classList.remove("priority1");
+                taskButtonElement.classList.add("priority4");
+            }
+
+
+
             const circleSvgElement = document.createElement("div");
             taskButtonElement.appendChild(circleSvgElement);
-            circleSvgElement.outerHTML = circleSvg;
+            if(item.getStatus == true){
+                taskButtonElement.classList.remove("priority1");
+                taskButtonElement.classList.remove("priority3");
+                taskButtonElement.classList.remove("priority4");
+                taskButtonElement.classList.remove("priority2");
+                toDoLi.classList.add("completed-tast-transparent");
+                const circleCheckSvg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path> </g> </g></svg>`
+                circleSvgElement.outerHTML = circleCheckSvg;
+            }else{
+                const circleSvg = `<svg viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2.3280000000000003" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`
+                circleSvgElement.outerHTML = circleSvg;
+            }
             toDoLi.appendChild(taskButtonElement);
 
             const toDoContentDiv = document.createElement("div");

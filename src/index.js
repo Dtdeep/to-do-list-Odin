@@ -39,6 +39,9 @@ content.addEventListener('click',(event)=>{
     switch(target.id){
         case "submit-create-project":
             const projectName = inputProjectName.value;
+            if (!projectName) {
+                break;
+            }
             ToDoProject.addNewProject(projectName);
             projectDialog.close();
             deleteAllChild(projectListDiv);
@@ -55,7 +58,9 @@ content.addEventListener('click',(event)=>{
             const taskDueDate = dueDateInput.value;
             const taskPriority = priorityInput.value;
             const taskProjectIdReference = projectIdReferenceInput.value;
-
+            if (!taskTitle) {
+                break;
+            }
             ToDoProject.addNewTask(taskTitle,taskDescription,taskDueDate,taskPriority,taskProjectIdReference);
             deleteAllChild(ulTasks);
             renderAllToDosInProject(CURRENTPROJECTID,ulTasks, taskProjectTitle);
